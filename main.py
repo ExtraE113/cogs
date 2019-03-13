@@ -21,7 +21,7 @@ class Game(arcade.Window):
         # So we just see our object, not the pointer.
         # self.set_mouse_visible(False)
 
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(const.BACKGROUND_COLOR)
         self.dots = [[griddot.GridDot(i, j) for j in range(const.DOTS_Y)] for i in
                      range(const.DOTS_X)]  # fucking black magic
 
@@ -32,7 +32,7 @@ class Game(arcade.Window):
         """ Use this function to draw everything to the screen. """
         # draw background, processing style. may be a better way to to do this built into arcade, but I couldn't find it
         arcade.draw_rectangle_filled(const.SCREEN_X / 2, const.SCREEN_Y / 2, const.SCREEN_X, const.SCREEN_Y,
-                                     arcade.color.BLACK)
+                                     const.BACKGROUND_COLOR)
 
         # draw everything by iterating over dots
         for i in self.dots:
@@ -65,7 +65,7 @@ class Game(arcade.Window):
             self.dots[x][y].held_obj = c
 
     def on_mouse_scroll(self, x: int, y: int, scroll_x: int, scroll_y: int):
-        self.mouse.r += scroll_y
+        self.mouse.r += int(scroll_y)
 
 
 def main():

@@ -1,6 +1,7 @@
 import arcade
 import constants as const
 import utils
+import math
 
 
 class Cog:
@@ -28,10 +29,18 @@ class Cog:
     def draw(self):
         arcade.draw_circle_outline(self._x_pix, self._y_pix, self._r_pix,
                                    self._color, const.DIST_BETWEEN_DOTS / 20)
+        arcade.draw_text(str(self.r),
+                         self._x_pix, self._y_pix, arcade.color.BLACK, 14, width=200, align="center",
+                         anchor_x="center", anchor_y="center")
 
     def is_touching(self, o_cog):
-        print(abs((self.x - o_cog.x)**2 + (self.y - o_cog.y)**2 - (self.r + o_cog.r + 2)**2))
-        return abs((self.x - o_cog.x)**2 + (self.y - o_cog.y)**2 - (self.r + o_cog.r + 2)**2) <= 2**2
+        x_dist = (self.x - o_cog.x)
+        y_dist = (self.y - o_cog.y)
+        dist = math.sqrt(x_dist**2 + y_dist**2)
+        r_sum = self.r + o_cog.r + 2
+
+        print(dist-r_sum)
+        return (dist - r_sum <= 0) and (dist - r_sum >= -0.18)
 
     # <editor-fold desc="Getters and setters">
     @property
